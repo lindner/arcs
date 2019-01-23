@@ -58,7 +58,8 @@ export class Db {
         await db.frames.insert({
           name: doc.title,
           timestamp: doc.time,
-          loc
+          loc,
+          srcid: docData['_id'] + docData['_rev']
         });
         console.log('re-inserted ' + doc.title, loc);
       },
