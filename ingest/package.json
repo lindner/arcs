@@ -1,0 +1,40 @@
+{
+  "name": "arcs-ingest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --exit --reporter spec -r ts-node/register -r source-map-support/register -r esm test/**/*.test.ts"
+  },
+  "bin": "./dist/cmd/ingest.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^0.2.3",
+    "arcs": "file:../",
+    "axios": "^0.18.0",
+    "chalk": "^2.4.2",
+    "commander": "^2.19.0",
+    "core-js": "^2.6.2",
+    "inquirer": "^6.2.1",
+    "ora": "^3.0.0",
+    "pouchdb-adapter-leveldb": "^7.0.0",
+    "rx-pouchdb": "^1.1.2",
+    "rxdb": "^8.0.4",
+    "rxjs": "^6.3.3",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.2.4"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/chalk": "^2.2.0",
+    "@types/commander": "^2.12.2",
+    "@types/core-js": "^2.5.0",
+    "@types/inquirer": "0.0.43",
+    "@types/mocha": "^5.2.5",
+    "@types/ora": "^3.0.0",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "rxjs-marbles": "^5.0.0"
+  }
+}
