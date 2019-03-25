@@ -1,9 +1,11 @@
 import RxDB, {RxDatabase, RxJsonSchema} from 'rxdb';
 import PouchDbMemory from 'pouchdb-adapter-memory';
 import PouchDbLevelDb from 'pouchdb-adapter-leveldb';
+import PouchDbHttp from 'pouchdb-adapter-http';
 
 RxDB.plugin(PouchDbMemory);
 RxDB.plugin(PouchDbLevelDb);
+RxDB.plugin(PouchDbHttp);
 
 import {MyActivityDocument, MyActivityCollection, MyActivitySchema} from './myactivity';
 import {FrameCollection, FrameSchema} from './frame';
@@ -14,14 +16,13 @@ export class Db {
   }
 
   static async create(adapter: string = 'memory'): Promise<Db> {
-console.log('CREATE');
     const db = await RxDB.create({
       name: 'ingest',
       adapter
     });
 
     const auditdb =  await RxDB.create({
-      name: 'audit',
+      name: '/tmp/audit',
       adapter
     });
 

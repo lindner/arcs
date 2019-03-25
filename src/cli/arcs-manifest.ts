@@ -32,3 +32,8 @@ commander.command('parse <filename>')
         }
     })
     .parse(process.argv);
+
+// Output help if nothing passed
+if (!process.argv.slice(2).length) {
+  commander.outputHelp();
+}

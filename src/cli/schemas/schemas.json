@@ -1,0 +1,12 @@
+{
+  "title": "schemas schema",
+  "description": "a specific file import",
+  "version": 0,
+  "attachments": {"encrypted": false},
+  "type": "object",
+  "properties": {
+    "sourceuri": { "type": "string" },
+    "timefound": { "type": "number",  "index": true},
+  },
+  "required": ["sourceuri", "timefound"]
+}

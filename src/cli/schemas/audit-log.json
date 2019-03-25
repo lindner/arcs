@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "Audit Logs Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "msg": {
+      "type": "string",
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "index": true
+    }
+  },
+  "required": [
+    "msg",
+    "timestamp"
+  ],
+}

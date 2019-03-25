@@ -1,0 +1,101 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/GoogleMyactivityElement"
+    },
+    "definitions": {
+        "GoogleMyactivityElement": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/Header"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Header"
+                    }
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Location"
+                    }
+                },
+                "titleUrl": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".+angels",
+                        ".+beeb",
+                        ".+benefit+compilation",
+                        ".+conspiracy",
+                        ".+instrumental",
+                        ".+man+soundtrack",
+                        ".+riko,+bruza,+d+double+e+and+hyper+-+cock+back",
+                        ".+sleep",
+                        ".s"
+                    ]
+                }
+            },
+            "required": [
+                "header",
+                "products",
+                "time",
+                "title"
+            ],
+            "title": "GoogleMyactivityElement"
+        },
+        "Location": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "$ref": "#/definitions/Name"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "url"
+            ],
+            "title": "Location"
+        },
+        "Name": {
+            "type": "string",
+            "enum": [
+                "From your current location"
+            ],
+            "title": "Name"
+        },
+        "Header": {
+            "type": "string",
+            "enum": [
+                "Google Play Music",
+                "Play Music"
+            ],
+            "title": "Header"
+        }
+    }
+}
