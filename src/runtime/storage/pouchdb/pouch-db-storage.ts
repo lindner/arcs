@@ -17,6 +17,7 @@ import {PouchDbCollection} from './pouch-db-collection.js';
 import {PouchDbKey} from './pouch-db-key.js';
 import {PouchDbStorageProvider} from './pouch-db-storage-provider.js';
 import {PouchDbVariable} from './pouch-db-variable.js';
+import {Environment} from '../../../cli/environment.js';
 
 PouchDB.plugin(PouchDbDebug);
 PouchDB.debug.disable();
@@ -195,13 +196,21 @@ export class PouchDbStorage extends StorageBase {
 
     // New connect to a database
     if (key.dbLocation === 'local') {
-      db = new PouchDB(key.dbName);
+      let dbName = key.dbName;
+      
+      // If running in Node put data in the Arcs Repo
+      if (!Environment.hasIndexedDb()) {
+        // needs to be an easier way to do this :(
+        dbName = Environment.getRepoPath() + '/db/pouch/' + key.dbName;
+      }
+      db = new PouchDB(dbName);
     } else if (key.dbLocation === 'memory') {
       PouchDB.plugin(PouchDbMemory);
       db = new PouchDB(key.dbName, {adapter: 'memory'});
     } else {
       // Create a local db to sync to the remote
       db = new PouchDB(key.dbName);
+      // TODO (also include directory here..
 
       // Ensure a secure origin, http is okay for localhost, but other hosts need https
       const httpScheme = key.dbLocation.startsWith('localhost') ? 'http://' : 'https://';
