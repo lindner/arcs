@@ -44,17 +44,20 @@ commander
     const path = Environment.getRepoPath();
     const arcsRepo = new ArcsRepo(path);
     await arcsRepo.open();
-    // get recent audit
+
     console.log("Arcs Repo in " + arcsRepo.repoPath);
     console.log();
 
-    console.log('AuditDb: ');
+    // get recent audit
+    console.log('AuditDb recent entries: ');
 
     const entries = await arcsRepo.recentAuditLogs();
 
     entries.forEach((entry) => {
       console.log(entry.timestamp + ' ' + entry.msg);
     });
+    // TODO(lindner): add more
+    
     await arcsRepo.close();
   });
 
