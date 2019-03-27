@@ -83,7 +83,7 @@ export class ArcsRepo {
     this.auditSubject.next('Initializing Repo in ' + this.repoPath);
     
     // Create directories if needed
-    for (const path of ['', '/db', '/dat', '/uploads']) {
+    for (const path of ['', '/db', '/db/rxdb', '/db/pouch', '/dat', '/uploads']) {
       try {
         await mkdir(this.repoPath + path);
       } catch (e) {
@@ -189,7 +189,7 @@ export class ArcsRepo {
   private async createAuditDb(): Promise<RxDatabase> {
     // Open Audit Database
     const db = await RxDB.create({
-      name: this.repoPath + '/db/audit',
+      name: this.repoPath + '/db/rxdb/audit',
       adapter: this.dbAdapter
     });
 
@@ -208,7 +208,7 @@ export class ArcsRepo {
 
   private async createArcsDb(): Promise<RxDatabase> {
     const db = await RxDB.create({
-      name: this.repoPath + '/db/arcs',
+      name: this.repoPath + '/db/rxdb/arcs',
       adapter: this.dbAdapter
     });
     // Replication could be enabled here
