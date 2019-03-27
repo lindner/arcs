@@ -23,11 +23,17 @@ const readFile = util.promisify(fs.readFile);
  */
 export class Environment {
   /**
-   * Returns the Arcs repo directory based on:
+   * @return the Arcs repo directory based on:
    * - The `ARCS_PATH` environment variable, if set.
    * - Defaults to ~/.arcs
    */
   static getRepoPath(): string {
     return process.env.ARCS_PATH || os.homedir() + '/.arcs';
+  }
+  /**
+   * @return true if window.indexedDB is defined
+   */
+  static hasIndexedDb(): boolean {
+    return !!window.indexedDB;
   }
 }
