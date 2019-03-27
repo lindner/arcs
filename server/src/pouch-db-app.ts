@@ -7,6 +7,7 @@
 // http://polymer.github.io/PATENTS.txt
 
 import {PlannerShellInterface} from 'arcs';
+import {Environment} from 'arcs';
 import PouchDbServer from 'express-pouchdb';
 import PouchDB from 'pouchdb';
 import PouchDbAdapterMemory from 'pouchdb-adapter-memory';
@@ -49,7 +50,8 @@ class PouchDbApp extends AppBase {
     // If VM lives at non-root prefix, works but fauxton not fully working yet
     const urlPrefix = process.env[VM_URL_PREFIX] || '/';
     const config = {
-      mode: 'fullCouchDB', inMemoryConfig: true,
+      mode: 'fullCouchDB',
+      inMemoryConfig: true,
       "httpd": {
         "enable_cors": true
       },
@@ -67,8 +69,17 @@ class PouchDbApp extends AppBase {
       const pouchDbRouter = PouchDbServer(onDiskPouchDb, config);
       this.express.use(urlPrefix, pouchDbRouter);
     } else {
-      const inMemPouchDb = PouchDB.plugin(PouchDbAdapterMemory).defaults({adapter: 'memory'});
-      this.express.use('/', PouchDbServer(inMemPouchDb, {mode: 'fullCouchDB', inMemoryConfig: true}));
+      const pouchDir = Environment.getRepoPath() + '/db/pouch';
+
+      // prefix requires a / at the end if you want to use it for a directory...
+      const onDiskPouchDb = PouchDB.defaults({prefix: pouchDir + '/'});
+      this.express.use('/',
+          PouchDbServer(onDiskPouchDb,
+                        {mode: 'fullCouchDB',
+                         logPath: pouchDir + '/log.txt',
+                         // TODO use on-disk config
+                         // maybe move generation of such to the init step.
+                         inMemoryConfig: true}));
     }
     console.log('added pouch routes');
   }
