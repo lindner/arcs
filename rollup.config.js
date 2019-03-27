@@ -10,7 +10,9 @@ import commonjs from 'rollup-plugin-commonjs';
 const defaults = {compilerOptions: {declaration: true}};
 
 export default [{
-  input: ['build/runtime/runtime.js', 
+  input: [
+    'build/cli/environment.js',
+    'build/runtime/runtime.js', 
     'build/runtime/keymgmt/manager.js', 
     'shells/planner-shell/planner-shell.js'],
   output: [
@@ -33,7 +35,7 @@ export default [{
         // if nothing is returned, we fall back to default resolution
       }
     },
-    resolve({jsnext: true, module: false, modulesOnly: true}),
+    resolve({jsnext: true, module: false, modulesOnly: true, preferBuiltins: true}),
     commonjs(),
     multiEntry()
   ]
